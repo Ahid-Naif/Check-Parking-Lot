@@ -10,8 +10,6 @@ let greenLED2 = new Gpio(22, 'out');
 //use GPIO pin 23 as input, and 'both' on/off status should be handled
 let ir2 = new Gpio(15, 'in', 'both');
 
-let loopInterval = setInterval(loop, 1000); //run the loop function every 1 second
-
 ir1.watch(function (err, value) {
     // watch for IR 1 status changes
     redLED1.writeSync(value);
