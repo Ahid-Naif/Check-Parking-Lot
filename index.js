@@ -10,26 +10,46 @@ let greenLED2 = new Gpio(22, 'out');
 //use GPIO pin 23 as input, and 'both' on/off status should be handled
 let ir2 = new Gpio(15, 'in', 'both');
 
+let ir1_initial = ir1.readSync();
+if (ir1_initial === 1) {
+    redLED1.writeSync(0);
+    greenLED1.writeSync(1);
+}
+else {
+    greenLED1.writeSync(0);
+    redLED1.writeSync(1);
+}
+
+let ir2_initial = ir2.readSync();
+if (ir2_initial === 1) {
+    redLED2.writeSync(0);
+    greenLED2.writeSync(1);
+}
+else {
+    greenLED2.writeSync(0);
+    redLED2.writeSync(1);
+}
+
 ir1.watch(function (err, value) {
     // watch for IR 1 status changes
     if (value === 1) {
-        greenLED1.writeSync(0);
-        redLED1.writeSync(1);
-    }
-    else {
         redLED1.writeSync(0);
         greenLED1.writeSync(1);
+    }
+    else {
+        greenLED1.writeSync(0);
+        redLED1.writeSync(1);
     }
 });
 
 ir2.watch(function (err, value) {
     // watch for IR 2 status changes
     if (value === 1) {
-        greenLED1.writeSync(0);
-        redLED1.writeSync(1);
+        redLED2.writeSync(0);
+        greenLED2.writeSync(1);
     }
     else {
-        redLED1.writeSync(0);
-        greenLED1.writeSync(1);
+        greenLED2.writeSync(0);
+        redLED2.writeSync(1);
     }
 });
