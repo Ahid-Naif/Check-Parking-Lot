@@ -13,19 +13,23 @@ let ir2 = new Gpio(15, 'in', 'both');
 ir1.watch(function (err, value) {
     // watch for IR 1 status changes
     if (value === 1) {
+        greenLED1.writeSync(0);
         redLED1.writeSync(1);
     }
     else {
-        greenLED1.writeSync(0);
+        redLED1.writeSync(0);
+        greenLED1.writeSync(1);
     }
 });
 
 ir2.watch(function (err, value) {
     // watch for IR 2 status changes
     if (value === 1) {
-        redLED2.writeSync(1);
+        greenLED1.writeSync(0);
+        redLED1.writeSync(1);
     }
     else {
-        greenLED2.writeSync(0);
+        redLED1.writeSync(0);
+        greenLED1.writeSync(1);
     }
 });
