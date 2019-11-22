@@ -19,7 +19,7 @@ ir1.watch(function (err, value) {
 });
 
 ir2.watch(function (err, value) {
-    // watch for IR 1 status changes
+    // watch for IR 2 status changes
     redLED2.writeSync(value);
     greenLED2.writeSync(!value);
 });
