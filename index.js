@@ -1,4 +1,4 @@
-const post  = require('./sendHttpRequest.js');
+const post = require('./sendHttpRequest.js');
 
 let Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 
@@ -12,67 +12,37 @@ let greenLED2 = new Gpio(22, 'out');
 //use GPIO pin 23 as input, and 'both' on/off status should be handled
 let ir2 = new Gpio(15, 'in', 'both');
 
-let parkingFirst = "";
-let parkingSecond = "";
 let parking_status = {
-    parkingFirst  : "",
-    parkingSecond : ""
+    parkingFirst: "",
+    parkingSecond: ""
 };
 
-let ir1_initial = ir1.readSync();
-if (ir1_initial === 1) {
-    parkingFirst = "available";
-    redLED1.writeSync(0);
-    greenLED1.writeSync(1);
-}
-else {
-    parkingFirst = "not_available";
-    greenLED1.writeSync(0);
-    redLED1.writeSync(1);
-}
+let loopInterval = setInterval(loop, 3000); // run loop function every 3 seconds
 
-let ir2_initial = ir2.readSync();
-if (ir2_initial === 1) {
-    parkingSecond = "available";
-    redLED2.writeSync(0);
-    greenLED2.writeSync(1);
-}
-else {
-    parkingSecond = "not_available";
-    greenLED2.writeSync(0);
-    redLED2.writeSync(1);
-}
-
-ir1.watch(function (err, value) {
-    // watch for IR 1 status changes
-    if (value === 1) {
-        parkingFirst = "available";
+function loop() {
+    let ir1_value = ir1.readSync();
+    if (ir1_value === 1) {
+        parking_status.parkingFirst = "available";
         redLED1.writeSync(0);
         greenLED1.writeSync(1);
     }
     else {
-        parkingFirst = "not_available";
+        parking_status.parkingFirst = "not_available";
         greenLED1.writeSync(0);
         redLED1.writeSync(1);
     }
-    parking_status.parkingFirst = parkingFirst;
-    parking_status.parkingSecond = parkingSecond;
-    post(parking_status);
-});
 
-ir2.watch(function (err, value) {
-    // watch for IR 2 status changes
-    if (value === 1) {
-        parkingSecond = "available";
+    let ir2_value = ir2.readSync();
+    if (ir2_value === 1) {
+        parking_status.parkingSecond = "available";
         redLED2.writeSync(0);
         greenLED2.writeSync(1);
     }
     else {
-        parkingSecond = "not_available";
+        parking_status.parkingSecond = "not_available";
         greenLED2.writeSync(0);
         redLED2.writeSync(1);
     }
-    parking_status.parkingFirst = parkingFirst;
-    parking_status.parkingSecond = parkingSecond;
+
     post(parking_status);
-});
+}
