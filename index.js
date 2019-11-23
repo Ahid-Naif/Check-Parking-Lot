@@ -12,11 +12,9 @@ let greenLED2 = new Gpio(22, 'out');
 //use GPIO pin 23 as input, and 'both' on/off status should be handled
 let ir2 = new Gpio(15, 'in', 'both');
 
-let parkingFirst = "";
-let parkingSecond = "";
+let availablity = "";
 let parking_status = {
-    parkingFirst  : "",
-    parkingSecond : ""
+    availablity  : "",
 };
 
 let ir1_initial = ir1.readSync();
@@ -57,7 +55,7 @@ ir1.watch(function (err, value) {
     }
     parking_status.parkingFirst = parkingFirst;
     parking_status.parkingSecond = parkingSecond;
-    post(parking_status);
+    post1(parking_status);
 });
 
 ir2.watch(function (err, value) {
@@ -74,5 +72,5 @@ ir2.watch(function (err, value) {
     }
     parking_status.parkingFirst = parkingFirst;
     parking_status.parkingSecond = parkingSecond;
-    post(parking_status);
+    post2(parking_status);
 });
