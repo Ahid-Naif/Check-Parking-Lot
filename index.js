@@ -1,4 +1,5 @@
-const post  = require('./sendHttpRequest.js');
+const post1  = require('./sendHttpRequest.js');
+const post2  = require('./sendHttpRequest.js');
 
 let Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 
