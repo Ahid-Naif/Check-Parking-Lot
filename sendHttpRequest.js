@@ -20,4 +20,5 @@ function post2(parking_lot_status){
         })
 };
 
-module.exports = post;
+module.exports = post1;
+module.exports = post2;
