@@ -4,13 +4,13 @@ let Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 
 let redLED1 = new Gpio(4, 'out');
 let greenLED1 = new Gpio(27, 'out');
-//use GPIO pin 23 as input, and 'both' on/off status should be handled
-let ir1 = new Gpio(14, 'in', 'both');
+//use GPIO pin 23 as input
+let ir1 = new Gpio(14, 'in');
 
 let redLED2 = new Gpio(17, 'out');
 let greenLED2 = new Gpio(22, 'out');
-//use GPIO pin 23 as input, and 'both' on/off status should be handled
-let ir2 = new Gpio(15, 'in', 'both');
+//use GPIO pin 23 as input
+let ir2 = new Gpio(15, 'in');
 
 let parking_status = {
     parkingFirst: "",
