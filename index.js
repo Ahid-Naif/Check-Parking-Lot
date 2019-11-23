@@ -1,5 +1,4 @@
-const post1  = require('./sendHttpRequest.js');
-const post2  = require('./sendHttpRequest.js');
+const post  = require('./sendHttpRequest.js');
 
 let Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 
@@ -13,9 +12,11 @@ let greenLED2 = new Gpio(22, 'out');
 //use GPIO pin 23 as input, and 'both' on/off status should be handled
 let ir2 = new Gpio(15, 'in', 'both');
 
-let availablity = "";
+let parkingFirst = "";
+let parkingSecond = "";
 let parking_status = {
-    availablity  : "",
+    parkingFirst  : "",
+    parkingSecond : ""
 };
 
 let ir1_initial = ir1.readSync();
@@ -56,7 +57,7 @@ ir1.watch(function (err, value) {
     }
     parking_status.parkingFirst = parkingFirst;
     parking_status.parkingSecond = parkingSecond;
-    post1(parking_status);
+    post(parking_status);
 });
 
 ir2.watch(function (err, value) {
@@ -73,5 +74,5 @@ ir2.watch(function (err, value) {
     }
     parking_status.parkingFirst = parkingFirst;
     parking_status.parkingSecond = parkingSecond;
-    post2(parking_status);
+    post(parking_status);
 });
